@@ -28,6 +28,7 @@ Server server;
 #include "modules/dynamics.h"
 #include "modules/api.h"
 #include "modules/profile.h"
+#include "modules/commands.h"
 
 int main()
 {
@@ -38,7 +39,15 @@ int main()
     initApi();
     initProfile();
 
-    std::cout << "Running Dejavu Client on port " << PORT << '.' << std::endl;
+    //std::cout << "Running Dejavu Client on port " << PORT << '.' << std::endl;
 
-    server.listen("127.0.0.1", PORT);
+    std::string command;
+
+    while (true)
+    {
+        std::cout << "Run a command: ";
+        std::cin >> command;
+    }
+
+    //server.listen("127.0.0.1", PORT);
 }
