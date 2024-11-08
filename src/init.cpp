@@ -9,7 +9,9 @@ using namespace httplib;
 
 int main()
 {
-    std::cout << "Running server." << std::endl;
+    const short PORT = 8080;
+
+    std::cout << "Running Dejavu Client on port " << PORT << '.' << std::endl;
 
     Server server;
 
@@ -18,5 +20,5 @@ int main()
         res.set_content("I hate sigmas.", "text/plain");
     });
 
-    server.listen("0.0.0.0", 12800);
+    server.listen("127.0.0.1", PORT);
 }
