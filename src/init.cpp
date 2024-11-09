@@ -27,6 +27,7 @@ int main()
 
     while (true)
     {
+        std::cout << "> ";
         std::getline(std::cin, input);
 
         std::istringstream iss(input);
