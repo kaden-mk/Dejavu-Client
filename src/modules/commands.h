@@ -150,25 +150,18 @@ void InitCommands() {
 					return;
 				}
 
-				// starting the client
+				// checking if the backend is online
 
-				std::cout << "Starting the client with ip: " << ip << " & port: " << port << std::endl;
+				std::cout << "Pinging the backend with ip: " << ip << " & port: " << port << std::endl;
 
 				Client client(ip, port);
 
 				auto response = client.Get("/");
-				
-				if (!response) {
-					std::cout << "Request failed, please try again.\n";
+
+				if (!response || response->status != StatusCode::NoContent_204) {
+					std::cout << "Backend offline, please try again.\n";
 					return;
 				}
-
-				if (response->status != StatusCode::OK_200) {
-					std::cout << "Status code failed, please try again.\n";
-					return;
-				}
-
-				std::cout << response->body << std::endl;
 			}
 		});
 
