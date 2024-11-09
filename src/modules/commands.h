@@ -167,6 +167,17 @@ void InitCommands() {
 				}
 
 				std::cout << "Backend online, launching Fortnite." << std::endl;
+				
+				// creates the command to run the .exe
+				std::string command = "\"" + directory + "\" -skippatchcheck -epicportal -HTTP=WinInet -log";
+
+				// i could've used createprocess for more control but i'll see
+
+				int result = std::system(command.c_str());
+
+				if (result == -1) {
+					std::cout << "Failed to launch Fortnite." << std::endl;
+				}
 			}
 		});
 
