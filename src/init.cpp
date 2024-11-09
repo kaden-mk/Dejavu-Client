@@ -23,7 +23,7 @@ int main()
 
     std::string input;
 
-    std::cout << "Run a command: ";
+    std::cout << "Welcome to Dejavu Client!\nMade by: Astr0verload & Davey\nType 'help' to view available commands\n";
 
     while (true)
     {
