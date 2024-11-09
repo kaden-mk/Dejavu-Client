@@ -155,13 +155,18 @@ void InitCommands() {
 				std::cout << "Pinging the backend with ip: " << ip << " & port: " << port << std::endl;
 
 				Client client(ip, port);
+				client.set_connection_timeout(10);
 
-				auto response = client.Get("/");
+				auto response = client.Get("/fortnite/api/storefront/v2/catalog");
 
-				if (!response || response->status != StatusCode::NoContent_204) {
+				client.stop();
+
+				if (response->status != StatusCode::OK_200 && response->status != StatusCode::NoContent_204) {
 					std::cout << "Backend offline, please try again.\n";
 					return;
 				}
+
+				std::cout << "Backend online, launching Fortnite." << std::endl;
 			}
 		});
 
