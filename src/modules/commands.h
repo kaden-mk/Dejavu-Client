@@ -18,11 +18,10 @@ void AddCommand(std::string name, std::string description) {
 
 }
 
-void FindCommand(std::string name) {
+Command FindCommand(std::string name) {
 
 }
 
 void ExecuteCommand(std::string name) {
 
 }
-
