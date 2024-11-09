@@ -177,7 +177,7 @@ void InitCommands() {
 
 				if (result == -1) {
 					std::cout << "Failed to launch Fortnite." << std::endl;
-				}
+				}	
 			}
 		});
 
