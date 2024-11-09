@@ -25,7 +25,7 @@ int main()
 
     std::cout << "Welcome to Dejavu Client!\nMade by: Astr0verload & Davey\nType 'help' to view available commands\n";
 
-    while (true)
+    while (!isExited)
     {
         std::cout << "> ";
         std::getline(std::cin, input);

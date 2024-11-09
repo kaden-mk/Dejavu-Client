@@ -62,6 +62,8 @@ void ExecuteCommand(const std::string& name, const std::vector<std::string>& arg
 
 // Command setup
 
+bool isExited = false;
+
 void InitCommands() {
 	// build stuff
 
@@ -96,5 +98,30 @@ void InitCommands() {
 
 				std::cout << "Successfully added build: " << buildName << " as a saved directory.\n";
 			}
+			else if (args[0] == "remove") {
+				if (args.size() < 2) {
+					std::cout << "You need to specify more args! build remove <buildname>";
+					return;
+				}
+
+				std::string buildName = args[1];
+
+				if (folders.find(buildName) == folders.end()) {
+					std::cout << "This build doesn't exist!" << std::endl;
+					return;
+				}
+
+				folders.erase(buildName);
+
+				std::cout << "Successfully removed build: " << buildName << std::endl;
+			}
 		});
+
+	// exit command
+
+	Command exitCommand = AddCommand("exit", "Exits the program.",
+		[](const std::vector<std::string>& args) {
+			isExited = true;
+		});
+		
 }
