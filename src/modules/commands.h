@@ -126,6 +126,50 @@ void InitCommands() {
 					std::cout << "Name: " << pair.first << ", Directory: " << pair.second << std::endl;
 				}
 			}
+			else if (args[0] == "run") {
+				// args are build run <buildname> <ip> <port>
+
+				if (args.size() < 4) {
+					std::cout << "You need to specify more args! build run <buildname> <ip> <port>\n";
+					return;
+				}
+
+				std::string buildName = args[1];
+				std::string ip = args[2];
+				int port = std::stoi(args[3]);
+
+				if (folders.find(buildName) == folders.end()) {
+					std::cout << "This build doesn't exist!" << std::endl;
+					return;
+				}
+
+				std::string directory = folders[buildName] + "/FortniteGame/Binaries/Win64/FortniteClient-Win64-Shipping.exe";
+
+				if (!std::filesystem::exists(directory)) {
+					std::cout << "Could not find specified .exe file inside the directory.\n";
+					return;
+				}
+
+				// starting the client
+
+				std::cout << "Starting the client with ip: " << ip << " & port: " << port << std::endl;
+
+				Client client(ip, port);
+
+				auto response = client.Get("/");
+				
+				if (!response) {
+					std::cout << "Request failed, please try again.\n";
+					return;
+				}
+
+				if (response->status != StatusCode::OK_200) {
+					std::cout << "Status code failed, please try again.\n";
+					return;
+				}
+
+				std::cout << response->body << std::endl;
+			}
 		});
 
 	// exit command
