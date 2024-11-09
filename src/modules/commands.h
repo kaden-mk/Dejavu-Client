@@ -60,15 +60,32 @@ void ExecuteCommand(const std::string& name, const std::vector<std::string>& arg
 void InitCommands() {
 	// run server
 
+	int PORT = 0;
+	bool isServerRunning = false;
+
 	Command runServerCommand = AddCommand("run", "Runs stuff.",
-		[](const std::vector<std::string>& args) {
-			// TODO: add better arg checking
+		[&isServerRunning, &PORT](const std::vector<std::string>& args) {
 			if (!args.empty()) {
-				if (args[0] == "server")
-					std::cout << "Running server on port: " << args[1] << std::endl;
+				if (args[0] == "server") {
+					if (isServerRunning) {
+						std::cout << "You already have a server running!" << std::endl;
+						return;
+					}
+
+					if (args.size() < 2) {
+						std::cout << "You need to specify the port number!" << std::endl;
+						return;
+					}
+
+					isServerRunning = true;
+					PORT = std::stoi(args[1]);
+					std::cout << "Running Dejavu Client on port: " << PORT << std::endl;
+
+					server.listen("120.0.0.1", PORT);
+				}
 			}
 			else {
-				std::cout << "No port specified. Usage: run server <port>" << std::endl;
+				std::cout << "You need to specify args!" << std::endl;
 			}
 		});
 }

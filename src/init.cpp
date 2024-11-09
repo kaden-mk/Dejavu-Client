@@ -33,8 +33,6 @@ Server server;
 
 int main()
 {
-    const short PORT = 8080;
-
     initStatics();
     initDynamics();
     initApi();
