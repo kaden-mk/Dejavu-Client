@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 #include <istream>
+#include <filesystem>
+#include <map>
 #include "libraries/json.hpp"
 #include "libraries/httplib.h"
 
@@ -9,6 +11,9 @@ using json = nlohmann::json;
 using namespace httplib;
 
 Server server;
+
+// used for storing the build folders, goes like this "buildname" = path
+std::map<std::string, std::string> folders;
 
 #include "modules/commands.h"
 
@@ -18,9 +23,10 @@ int main()
 
     std::string input;
 
+    std::cout << "Run a command: ";
+
     while (true)
     {
-        std::cout << "Run a command: ";
         std::getline(std::cin, input);
 
         std::istringstream iss(input);
