@@ -65,6 +65,8 @@ void ExecuteCommand(const std::string& name, const std::vector<std::string>& arg
 bool isExited = false;
 
 void InitCommands() {
+	LoadFoldersFromFile();
+
 	// build stuff
 
 	Command buildCommand = AddCommand("build", "Used for building stuff.",
@@ -96,6 +98,8 @@ void InitCommands() {
 				// adds the buildname to the map
 				folders[buildName] = path;
 
+				SaveFoldersToFile();
+
 				std::cout << "Successfully added build: " << buildName << " as a saved directory.\n";
 			}
 			else if (args[0] == "remove") {
@@ -112,6 +116,8 @@ void InitCommands() {
 				}
 
 				folders.erase(buildName);
+				
+				SaveFoldersToFile();
 
 				std::cout << "Successfully removed build: " << buildName << std::endl;
 			}
@@ -127,6 +133,7 @@ void InitCommands() {
 	Command exitCommand = AddCommand("exit", "Exits the program.",
 		[](const std::vector<std::string>& args) {
 			isExited = true;
+			SaveFoldersToFile();
 		});
 		
 }

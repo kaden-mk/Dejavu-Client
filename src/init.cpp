@@ -15,6 +15,36 @@ Server server;
 // used for storing the build folders, goes like this "buildname" = path
 std::map<std::string, std::string> folders;
 
+// JSON SAVING
+
+// saves the json file
+static void SaveFoldersToFile(const std::string& fileName = "folders.json") {
+    json j;
+    for (const auto& [buildName, path] : folders) {
+        j[buildName] = path;
+    }
+
+    std::ofstream file(fileName);
+    if (file.is_open()) {
+        file << j.dump(4); // does a pretty print w 4 spaces
+        file.close();
+    }
+}
+
+// loads the json and adds it to the map
+static void LoadFoldersFromFile(const std::string& fileName = "folders.json") {
+    std::ifstream file(fileName);
+    if (file.is_open()) {
+        json j;
+        file >> j;
+        file.close();
+
+        for (const auto& [buildName, path] : j.items()) {
+            folders[buildName] = path.get<std::string>();
+        }
+    }
+}
+
 #include "modules/commands.h"
 
 int main()
