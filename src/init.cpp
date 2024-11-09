@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <istream>
 #include "libraries/json.hpp"
 #include "libraries/httplib.h"
 
@@ -38,16 +39,30 @@ int main()
     initDynamics();
     initApi();
     initProfile();
+    InitCommands();
 
-    //std::cout << "Running Dejavu Client on port " << PORT << '.' << std::endl;
-
-    std::string command;
+    std::string input;
 
     while (true)
     {
         std::cout << "Run a command: ";
-        std::cin >> command;
-    }
+        std::getline(std::cin, input);
 
-    //server.listen("127.0.0.1", PORT);
+        std::istringstream iss(input);
+        std::string commandName;
+        iss >> commandName;
+
+        std::vector<std::string> args;
+        std::string arg;
+        while (iss >> arg) {
+            args.push_back(arg);
+        }
+
+        try {
+            ExecuteCommand(commandName, args);
+        }
+        catch (const std::exception& exception) {
+            std::cout << exception.what() << std::endl;
+        }
+    }
 }
