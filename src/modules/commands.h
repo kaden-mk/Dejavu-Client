@@ -157,11 +157,11 @@ void InitCommands() {
 				Client client(ip, port);
 				client.set_connection_timeout(10);
 
-				auto response = client.Get("/fortnite/api/storefront/v2/catalog");
+				auto response = client.Get("/waitingroom/api/waitingroom");
 
 				client.stop();
 
-				if (response->status != StatusCode::OK_200 && response->status != StatusCode::NoContent_204) {
+				if (!response || response->status != StatusCode::OK_200 && response->status != StatusCode::NoContent_204) {
 					std::cout << "Backend offline, please try again.\n";
 					return;
 				}
