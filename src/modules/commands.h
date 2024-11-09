@@ -115,6 +115,11 @@ void InitCommands() {
 
 				std::cout << "Successfully removed build: " << buildName << std::endl;
 			}
+			else if (args[0] == "list") {
+				for (const auto& pair : folders) {
+					std::cout << "Name: " << pair.first << ", Directory: " << pair.second << std::endl;
+				}
+			}
 		});
 
 	// exit command
