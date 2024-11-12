@@ -46,9 +46,11 @@ static void LoadFoldersFromFile(const std::string& fileName = "folders.json") {
 }
 
 #include "modules/commands.h"
+#include "modules/injectdll.h"
 
 int main()
 {
+    injection();
     InitCommands();
 
     std::string input;
